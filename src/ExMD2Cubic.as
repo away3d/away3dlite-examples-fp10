@@ -1,16 +1,18 @@
 /*
 
-Basic scene setup example in Away3d
+Basic MD2 loading in Away3dLite
 
 Demonstrates:
 
-How to setup your own camera and scene, and apply it to a view.
-How to add 3d objects to a scene.
-How to update the view every frame.
+How to load an md2 file.
+How to load a texture from an external image.
+How to animate an md2 file.
 
-Code by Rob Bateman
+Code by Rob Bateman & Katopz
 rob@infiniteturtles.co.uk
 http://www.infiniteturtles.co.uk
+katopz@sleepydesign.com
+http://sleepydesign.com/
 
 This code is distributed under the MIT License
 
@@ -58,19 +60,12 @@ package
     	//signature swf
     	[Embed(source="assets/signature.swf", symbol="Signature")]
     	public static var SignatureSwf:Class;
-    	
-    	//sphere texture jpg
-		[Embed(source="assets/blue.jpg")]
-		private var Blue:Class;
-		
-		//torus texture jpg
-		[Embed(source="assets/red.jpg")]
-		private var Red:Class;
 		
 		//engine variables
 		private var stats:Stats;
+		private var scene:Scene3D;
 		private var camera:Camera3D;
-		private var renderer:GroupRenderer;
+		private var renderer:FastRenderer;
 		private var view:View3D;
 		
 		//signature variables
@@ -108,14 +103,15 @@ package
 			stats = new Stats();
 			addChild(stats);
 			
-			//camera = new Camera3D({z:-1000});
+			scene = new Scene3D();
+			
 			camera = new Camera3D();
 			camera.z = -1500;
 			
-			renderer = new GroupRenderer();
+			renderer = new FastRenderer();
 			
-			//view = new View3D({scene:scene, camera:camera});
 			view = new View3D();
+			view.scene = scene;
 			view.camera = camera;
 			view.renderer = renderer;
 			
@@ -127,8 +123,8 @@ package
             SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
             stage.quality = StageQuality.HIGH;
             SignatureBitmap.bitmapData.draw(Signature);
-            stage.quality = StageQuality.LOW;
-            addChild(SignatureBitmap);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
 		}
 		
 		/**
@@ -136,8 +132,8 @@ package
 		 */
 		private function initMaterials():void
 		{
-			//material = new LineMaterial(0xCC0000);
-			material = new BitmapMaterial((new Red() as Bitmap).bitmapData);
+			material = new BitmapFileMaterial("assets/pg.png");
+			material.smooth = true;
 		}
 		
 		/**
@@ -146,23 +142,23 @@ package
 		private function initObjects():void
 		{
 			var amount:uint = 3;
-			var radius:uint = 80;
-			var gap:uint = amount;
+			var gap:int = 240;
 
-			for (var i:int = -amount / 2; i < amount / 2; ++i) {
-				for (var j:int = -amount / 2; j < amount / 2; ++j) {
-					for (var k:int = -amount / 2; k < amount / 2; ++k) {
-						var md2:Md2 = new Md2();
-						md2.material = new BitmapFileMaterial("assets/pg.png");
+			for (var i:int = 0; i < amount; ++i) {
+				for (var j:int = 0; j < amount; ++j) {
+					for (var k:int =0; k < amount; ++k) {
+						var md2:MD2 = new MD2();
+						md2.material = material;
+						material.smooth = true;
 						md2.scaling = 10;
-						
+						md2.centerMeshes = true;
 						var loader:Loader3D = new Loader3D(); 
 						loader.loadGeometry("assets/pg.md2", md2);
 						loader.addOnSuccess(onSuccess);
 						
-						loader.x = gap * radius * i;
-						loader.y = gap * radius * j;
-						loader.z = gap * radius * k;
+						loader.x = gap*i - amount*gap/2;
+						loader.y = gap*j - amount*gap/2;
+						loader.z = gap*k - amount*gap/2;
 						
 						view.scene.addChild(loader);
 					}
@@ -187,9 +183,9 @@ package
 		 */
 		private function onEnterFrame( e:Event ):void
 		{
-			view.scene.rotationX = (mouseX - stage.stageWidth / 2) / 5;
-			view.scene.rotationZ = (mouseY - stage.stageHeight / 2) / 5;
-			view.scene.rotationY++;
+			scene.rotationX = (mouseX - stage.stageWidth / 2) / 5;
+			scene.rotationZ = (mouseY - stage.stageHeight / 2) / 5;
+			scene.rotationY++;
 			view.render();
 		}
 						
