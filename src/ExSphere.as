@@ -4,7 +4,7 @@ package
 	import away3dlite.primitives.Sphere;
 	import away3dlite.templates.SimpleView;
 
-	[SWF(width=800, height = 600, backgroundColor = 0x666666, frameRate = 30)]
+	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 	/**
 	 * ExSphere
 	 * @author katopz

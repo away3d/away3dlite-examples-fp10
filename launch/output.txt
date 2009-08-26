@@ -1,0 +1,11 @@
+Execute command: compile 1
+
+----------
+Loading configuration file /Applications/FDT3/plugins/com.powerflasher.fdt.shippedflex_3.2.0.3958_0001/flex/frameworks/flex-config.xml
+Recompile: /Users/robbateman/Documents/fdtworkspace/Away3DLite_Examples/src/ExSphere.as
+Reason: The source file or one of the included files has been updated.
+Files changed: 1 Files affected: 0
+/Users/robbateman/Documents/fdtworkspace/Away3DLite_Examples/bin/ExSphere.swf (22764 bytes)
+(fcsh) 
+----------
+Launch Browser
