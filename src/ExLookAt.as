@@ -4,17 +4,17 @@ package
 	import away3dlite.materials.BitmapFileMaterial;
 	import away3dlite.materials.WireframeMaterial;
 	import away3dlite.primitives.Sphere;
-	import away3dlite.templates.SimpleView;
+	import away3dlite.templates.FastTemplate;
 	
 	import flash.events.MouseEvent;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 
 	/**
-	 * ExLookAt
+	 * Example : LookAt
 	 * @author katopz
 	 */
-	public class ExLookAt extends SimpleView
+	public class ExLookAt extends FastTemplate
 	{
 		private var sphere0:Sphere;
 		private var sphere1:Sphere;
@@ -24,9 +24,9 @@ package
 		private var target:Object3D;
 		private var isLookAt:Boolean = false;
 		
-		override protected function create():void
+		override protected function onInit():void
 		{
-			title += " : LookAt 2 Spheres, Click to switch target."; 
+			title += " : LookAt 2 Spheres, Click to switch target"; 
 			
 			var segment:uint = 20;
 
@@ -52,7 +52,7 @@ package
 			isLookAt = !isLookAt;
 		}
 		
-		override protected function draw():void
+		override protected function onPreRender():void
 		{
 			sphere1.x = 200 * Math.sin(step);
 			step += 0.1;

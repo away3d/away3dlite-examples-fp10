@@ -2,27 +2,30 @@ package
 {
 	import away3dlite.materials.BitmapFileMaterial;
 	import away3dlite.primitives.Sphere;
-	import away3dlite.templates.SimpleView;
+	import away3dlite.templates.FastTemplate;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 	/**
-	 * ExSphere
+	 * Example : Sphere
 	 * @author katopz
 	 */
-	public class ExSphere extends SimpleView
+	public class ExSphere extends FastTemplate
 	{
-		override protected function create():void
+		override protected function onInit():void
 		{
-			title += " : Sphere 40x40 segments"; 
+			var segments:uint = 73;
+			
+			title += " : Sphere "+segments+"x"+segments+" segments"; 
 			
 			var sphere:Sphere = new Sphere();
 			sphere.radius = 100;
-			sphere.segmentsW = sphere.segmentsH = 40;
+			sphere.segmentsW = sphere.segmentsH = segments;
 			sphere.material = new BitmapFileMaterial("assets/earth.jpg");
+			
 			view.scene.addChild(sphere);
 		}
 
-		override protected function draw():void
+		override protected function onPreRender():void
 		{
 			view.scene.rotationY+=Math.PI/10;
 		}
