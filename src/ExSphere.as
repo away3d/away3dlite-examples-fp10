@@ -13,7 +13,9 @@ package
 	{
 		override protected function onInit():void
 		{
-			var segments:uint = 73;
+			// BasicRenderer via single core = 73 segments
+			// FastRenderer via single core = 74 segments
+			var segments:uint = 74;
 			
 			title += " : Sphere "+segments+"x"+segments+" segments"; 
 			
