@@ -4,7 +4,7 @@ package
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
 
-	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	/**
 	 * Example : Sphere
 	 * @author katopz
@@ -13,19 +13,23 @@ package
 	{
 		override protected function onInit():void
 		{
-			// BasicRenderer via single core = 73 segments
-			// FastRenderer via single core = 74 segments
-			var segments:uint = 74;
+			/*
+				Test with single core, quality MEDIUM, at 30/30FPS steady
+				BasicRenderer = 59x59 segments = 6,844 faces
+				FastRenderer  = 60x60 segments = 7,080 faces
+			*/
+			var segments:uint = 59;
 			
 			title += " : Sphere "+segments+"x"+segments+" segments"; 
+
+			// #1 away3d
+			var sphere:Sphere = new Sphere({radius:100, segmentsW:segments, segmentsH:segments, material:new BitmapFileMaterial("assets/earth.jpg")});
 			
-			// #1 migrate from other engine
+			// #2 other engine
 			//var sphere:Sphere = new Sphere().create(new BitmapFileMaterial("assets/earth.jpg"), 100, segments, segments);
 
-			// #2 migrate from other away3d
-			var sphere:Sphere = new Sphere({radius:100, segmentsW:segments, segmentsH:segments, material:new BitmapFileMaterial("assets/earth.jpg")});
-
-			/* #3 native
+			// #3 native
+			/*
 			var sphere:Sphere = new Sphere();
 			sphere.radius = 100;
 			sphere.segmentsW = sphere.segmentsH = segments;

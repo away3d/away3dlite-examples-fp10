@@ -48,7 +48,7 @@ package
 	import flash.display.*;
 	import flash.events.*;
 	
-	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	
 	public class Basic_SceneSetup extends Sprite
 	{
@@ -118,7 +118,7 @@ package
             SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
             stage.quality = StageQuality.HIGH;
             SignatureBitmap.bitmapData.draw(Signature);
-            stage.quality = StageQuality.LOW;
+            stage.quality = StageQuality.MEDIUM;
             addChild(SignatureBitmap);
 		}
 		

@@ -5,7 +5,7 @@ package
 	import away3dlite.loaders.*;
 	import away3dlite.templates.*;
 
-	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 
 	/**
 	 * ExMQO
