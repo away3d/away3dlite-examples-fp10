@@ -100,9 +100,6 @@ package
 		 */
 		private function initEngine():void
 		{
-			stats = new Stats();
-			addChild(stats);
-			
 			scene = new Scene3D();
 			
 			camera = new Camera3D();
@@ -125,6 +122,9 @@ package
             SignatureBitmap.bitmapData.draw(Signature);
             stage.quality = StageQuality.MEDIUM;
 			addChild(SignatureBitmap);
+			
+			stats = new Stats();
+			addChild(stats);
 		}
 		
 		/**

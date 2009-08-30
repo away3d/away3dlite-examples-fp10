@@ -120,10 +120,10 @@ package
 			camera.targettiltangle = camera.tiltangle = 0;
 			
 			clipping = new RectangleClipping();
-			clipping.minX = -320;
-			clipping.minY = -240;
-			clipping.maxX = 320;
-			clipping.maxY = 240;
+			clipping.minX = -400;
+			clipping.minY = -300;
+			clipping.maxX = 400;
+			clipping.maxY = 300;
 			
 			view = new View3D();
 			view.scene = scene;

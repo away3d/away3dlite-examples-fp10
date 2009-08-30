@@ -1,8 +1,8 @@
 package
 {
-	import away3dlite.materials.BitmapFileMaterial;
-	import away3dlite.primitives.Sphere;
-	import away3dlite.templates.FastTemplate;
+	import away3dlite.materials.*;
+	import away3dlite.primitives.*;
+	import away3dlite.templates.*;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 	/**
@@ -43,7 +43,7 @@ package
 
 		override protected function onPreRender():void
 		{
-			view.scene.rotationY+=Math.PI/10;
+			view.scene.rotationY += 0.2;
 		}
 	}
 }

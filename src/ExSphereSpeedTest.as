@@ -46,6 +46,7 @@ package
 	import away3dlite.containers.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
+	import away3dlite.templates.*;
 	
 	import net.hires.debug.Stats;
 	
@@ -54,100 +55,37 @@ package
 	
 	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 	
-	public class ExSphereSpeedTest extends Sprite
+	public class ExSphereSpeedTest extends FastTemplate
 	{
-    	//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
-    	public static var SignatureSwf:Class;
-    	
-		//engine variables
-		private var stats:Stats;
-		private var scene:Scene3D;
-		private var camera:Camera3D;
-		private var renderer:FastRenderer;
-		private var view:View3D;
-		
-		//signature variables
-		private var Signature:Sprite;
-		private var SignatureBitmap:Bitmap;
-		
-		/**
-		 * Constructor
-		 */
-		public function ExSphereSpeedTest() 
-		{
-			init();
-		}
-		
-		/**
-		 * Global initialise function
-		 */
-		private function init():void
-		{
-			initEngine();
-			initListeners();
-		}
-		
 		/**
 		 * Initialise the engine
 		 */
-		private function initEngine():void
+		protected override function onInit():void
 		{
-			stats = new Stats();
-			addChild(stats);
+			title += " : Sphere speed test."; 
 			
-			scene = new Scene3D();
-			
-			camera = new Camera3D();
 			camera.zoom = 15;
 			camera.focus = 50;
 			camera.z = -500;
 			
-			renderer = new FastRenderer();
 			renderer.sortMeshes = false;
 			
-			view = new View3D();
-			view.scene = scene;
-			view.camera = camera;
-			view.renderer = renderer;
+			onMouseUp();
+			onMouseUp();
+			onMouseUp();
+			onMouseUp();
+			onMouseUp();
+			onMouseUp();
 			
-			//view.addSourceURL("srcview/index.html");
-			addChild(view);
-			
-			//add signature
-            Signature = Sprite(new SignatureSwf());
-            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
-            stage.quality = StageQuality.HIGH;
-            SignatureBitmap.bitmapData.draw(Signature);
-            stage.quality = StageQuality.LOW;
-            addChild(SignatureBitmap);
-		}
-		
-		/**
-		 * Initialise the listeners
-		 */
-		private function initListeners():void
-		{
-			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			stage.addEventListener(MouseEvent.CLICK, onClick);
-			stage.addEventListener(Event.RESIZE, onResize);
-			onClick();
-			onClick();
-			onClick();
-			onClick();
-			onClick();
-			onClick();
-			onResize();
+			stage.addEventListener(MouseEvent.CLICK, onMouseUp);
 		}
 		
 		/**
 		 * Navigation and render loop
 		 */
-		private function onEnterFrame( e:Event ):void
+		protected override function onPreRender():void
 		{
-			//
-			//trace("Kjdkljsfjsf")
 			view.scene.z += ((view.height + scene.children.length*100) - view.scene.z) / 25;
 			
 			for each (var mesh:Mesh in scene.children) {
@@ -155,14 +93,12 @@ package
 				mesh.rotationY++;
 				mesh.rotationZ++;
 			}
-			
-			view.render();
 		}
 		
 		/**
-		 * Listener function for mouse click
+		 * Listener function for mouse up event
 		 */
-		private function onClick(event:MouseEvent = null):void
+		private function onMouseUp(event:MouseEvent = null):void
 		{
 			var sphere:Sphere = new Sphere();
 			sphere.radius = 100;
@@ -184,21 +120,14 @@ package
 			}
 		}
 		
+		/**
+		 * Listener function for mouse down event
+		 */
 		private function onMouseDown(event:MouseEvent = null):void
 		{
 			for each (var mesh:Mesh in scene.children) {
 				mesh.material.debug = true;
 			}
-		}
-		
-		/**
-		 * stage listener for resize events
-		 */
-		private function onResize(event:Event = null):void
-		{
-			view.x = stage.stageWidth / 2;
-            view.y = stage.stageHeight / 2;
-            SignatureBitmap.y = stage.stageHeight - Signature.height;
 		}
 	}
 }

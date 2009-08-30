@@ -38,6 +38,8 @@ THE SOFTWARE.
 
 package
 {
+	import away3dlite.materials.WireframeMaterial;
+	import away3dlite.primitives.Plane;
 	import away3dlite.cameras.*;
 	import away3dlite.containers.*;
 	import away3dlite.core.base.*;
@@ -132,7 +134,7 @@ package
 			camera = new HoverCamera3D();
 			camera.targetpanangle = camera.panangle = 45;
 			camera.targettiltangle = camera.tiltangle = 20;
-			
+			//camera.distance = 40000;
 			//view = new View3D({scene:scene, camera:camera});
 			view = new View3D();
 			view.scene = scene;
@@ -174,6 +176,16 @@ package
 			loader.loadGeometry("assets/f360.3ds", max3ds);
 			
 			scene.addChild(loader);
+			
+			var plane:Plane = new Plane();
+			plane.segmentsH = 80;
+			plane.segmentsW = 80;
+			plane.material = new WireframeMaterial(0xFF0000);
+			plane.bothsides = true;
+			plane.yUp = false;
+			plane.width = 500;
+			plane.height = 500;
+			scene.addChild(plane);
 		}
 		
 		/**

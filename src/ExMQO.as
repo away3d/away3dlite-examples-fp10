@@ -1,7 +1,9 @@
 package
 {
-	import away3dlite.loaders.MQO;
-	import away3dlite.templates.SimpleView;
+	import away3dlite.core.base.*;
+	import away3dlite.events.*;
+	import away3dlite.loaders.*;
+	import away3dlite.templates.*;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="LOW", width="800", height="600")]
 
@@ -10,23 +12,74 @@ package
 	 * @author katopz
 	 *
 	 */
-	public class ExMQO extends SimpleView
+	public class ExMQO extends BasicTemplate
 	{
 		private var mqo:MQO;
-
-		override protected function create():void
+		private var loader:Loader3D;
+		private var loaded:Boolean = false;
+		private var model1:Object3D;
+		private var model2:Object3D;
+		private var model3:Object3D;
+		private var model4:Object3D;
+		private var model5:Object3D;
+		
+		private function onSuccess(event:Loader3DEvent):void
 		{
-			title += " : Metasequoia Example."
+			loaded = true;
+			model1 = loader.handle;
 			
-			mqo = new MQO("assets/Messerschmitt_Bf_109.mqo");
-			view.scene.addChild(mqo);
+			model2 = model1.clone();
+			model3 = model1.clone();
+			model4 = model1.clone();
+			model5 = model1.clone();
+			
+			model2.x = -300;
+			model3.x = 300;
+			model4.y = -220;
+			model5.y = 220;
+			
+			scene.addChild(model2);
+			scene.addChild(model3);
+			scene.addChild(model4);
+			scene.addChild(model5);
 		}
-
-		override protected function draw():void
+		
+		override protected function onInit():void
 		{
-			mqo.rotationX++;
-			mqo.rotationY++;
-			mqo.rotationZ++;
+			title += " : Metasequoia Example.";
+			
+			mqo = new MQO();
+			//mqo.centerMeshes = true;
+			
+			loader = new Loader3D();
+			loader.loadGeometry("assets/Messerschmitt_Bf_109.mqo", mqo);
+			loader.addOnSuccess(onSuccess);
+			scene.addChild(loader);
+		}
+		
+		override protected function onPreRender():void
+		{
+			if (loaded) {
+				model1.rotationX++;
+				model1.rotationY++;
+				model1.rotationZ++;
+				
+				model2.rotationX++;
+				model2.rotationY++;
+				model2.rotationZ++;
+				
+				model3.rotationX++;
+				model3.rotationY++;
+				model3.rotationZ++;
+				
+				model4.rotationX++;
+				model4.rotationY++;
+				model4.rotationZ++;
+				
+				model5.rotationX++;
+				model5.rotationY++;
+				model5.rotationZ++;
+			}
 		}
 	}
 }
