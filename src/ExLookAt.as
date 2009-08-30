@@ -32,14 +32,14 @@ package
 			sphere0.segmentsW = sphere0.segmentsH = segment;
 			sphere0.material = new BitmapFileMaterial("assets/earth.jpg");
 			sphere0.name = "sphere0";
-			view.scene.addChild(sphere0);
+			scene.addChild(sphere0);
 			
 			sphere1 = new Sphere();
 			sphere1.radius = 100;
 			sphere1.segmentsW = sphere1.segmentsH = segment;
 			sphere1.material = new WireframeMaterial();
 			sphere1.name = "sphere1";
-			view.scene.addChild(sphere1);
+			scene.addChild(sphere1);
 			
 			stage.addEventListener(MouseEvent.CLICK, onMouse);
 		}

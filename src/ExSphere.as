@@ -42,12 +42,12 @@ package
 			// #5 error test 
 			//var sphere:Sphere = new Sphere().init({wtf:100, segmentsW:segments, segmentsH:segments, material:new BitmapFileMaterial("assets/earth.jpg")});
 
-			view.scene.addChild(sphere);
+			scene.addChild(sphere);
 		}
 
 		override protected function onPreRender():void
 		{
-			view.scene.rotationY += 0.2;
+			scene.rotationY += 0.2;
 		}
 	}
 }

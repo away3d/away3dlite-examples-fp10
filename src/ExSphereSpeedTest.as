@@ -86,7 +86,7 @@ package
 		 */
 		protected override function onPreRender():void
 		{
-			view.scene.z += ((view.height + scene.children.length*100) - view.scene.z) / 25;
+			scene.z += ((view.height + scene.children.length*100) - scene.z) / 25;
 			
 			for each (var mesh:Mesh in scene.children) {
 				mesh.rotationX++;
