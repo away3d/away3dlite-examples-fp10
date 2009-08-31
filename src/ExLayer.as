@@ -1,10 +1,11 @@
 package
 {
-	import away3dlite.containers.Layer;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
 	
+	import flash.display.Shape;
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.filters.GlowFilter;
 
@@ -17,20 +18,21 @@ package
 	{
 		override protected function onInit():void
 		{
-			title += " : Layer, 3rd plane always on top, Click 2nd, 3rd plane to change filters"; 
+			title += " : Layer, Click plane to change filters"; 
 			
+			var plane:Plane;
 			for(var i:int=0;i<4;i++)
 			{
-				var plane:Plane = new Plane().create(new BitmapFileMaterial("assets/earth.jpg"), 256, 128);
+				plane = new Plane().create(new BitmapFileMaterial("assets/earth.jpg"), 256, 128);
 				plane.yUp = false;
 				plane.bothsides = true;
 				plane.rotationX = 30;
-				plane.y = i*50;
+				plane.y = i*50 - 4*50/2;
 				scene.addChild(plane);
 				
 				// separates by Layer
-				var layer:Layer = new Layer();
-				addChild(layer);
+				var layer:Sprite = new Sprite();
+				view.addChild(layer);
 				plane.layer = layer;
 				plane.layer.addEventListener(MouseEvent.CLICK, onClick);
 			}
@@ -40,7 +42,7 @@ package
 		{
 			trace("! onClick : " +event);
 			
-			var layer:Layer = event.target as Layer;
+			var layer:Sprite = event.target as Sprite;
 			
 			if(layer.filters.length==0)
 			{
