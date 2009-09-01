@@ -17,6 +17,7 @@ package
 	[SWF(backgroundColor="#666666",frameRate="30",quality="MEDIUM",width="800",height="600")]
 	/**
 	 * Example : Flash3D Physics
+	 * @see http://away3d.googlecode.com/svn/branches/JigLibLite/src
 	 * @author bartekd
 	 * @author katopz
 	 */
@@ -106,7 +107,7 @@ package
 
 		private function handleMouseMove(event:MouseEvent):void
 		{
-			trace("handleMouseMove:" + event.target, renderer.view.mouseX);
+			//trace("handleMouseMove:" + event.target, renderer.view.mouseX);
 			if (isDown)
 			{
 				var ball:RigidBody = ballBody[event.target];
