@@ -1,14 +1,16 @@
 package
 {
+	import away3dlite.materials.ColorMaterial;
 	import away3dlite.materials.WireframeMaterial;
 	import away3dlite.templates.PhysicsTemplate;
-
+	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Vector3D;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-
+	
 	import jiglib.math.*;
 	import jiglib.physics.*;
 	import jiglib.physics.constraint.*;
@@ -50,6 +52,8 @@ package
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, handleMouse);
 
 			init3D();
+			
+			camera.y = 1000;
 		}
 
 		private function init3D():void
@@ -59,18 +63,18 @@ package
 			for (var i:int = 0; i < 3; i++)
 			{
 				color = (i == 0) ? 0xff8888 : 0xeeee00;
-				var ball:RigidBody = physics.createSphere(new WireframeMaterial());
+				var ball:RigidBody = physics.createSphere(new WireframeMaterial(),25);
 				Away3DLiteMesh(ball.skin).mesh.addEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);
-				ball.mass = 3;
+				ball.mass = 5;
 				ball.moveTo(new JNumber3D(-100, 500 + (100 * i + 100), -100));
 
 				_ball = ballBody[Away3DLiteMesh(ball.skin).mesh] = ball;
 			}
 
 			boxBody = [];
-			for (i = 0; i < 3; i++)
+			for (i = 0; i < 6; i++)
 			{
-				boxBody[i] = physics.createCube(new WireframeMaterial(), 100, 100, 100);
+				boxBody[i] = physics.createCube(new WireframeMaterial(0xFFFFFF*Math.random()), 25, 25, 25);
 				boxBody[i].moveTo(new JNumber3D(0, 500 + (100 * i + 100), 0));
 			}
 		}
@@ -198,11 +202,11 @@ package
 		{
 			if (keyLeft)
 			{
-				_ball.addWorldForce(new JNumber3D(-100, 0, 0), _ball.currentState.position);
+				_ball.addWorldForce(new JNumber3D(100, 0, 0), _ball.currentState.position);
 			}
 			if (keyRight)
 			{
-				_ball.addWorldForce(new JNumber3D(100, 0, 0), _ball.currentState.position);
+				_ball.addWorldForce(new JNumber3D(-100, 0, 0), _ball.currentState.position);
 			}
 			if (keyForward)
 			{
@@ -219,7 +223,7 @@ package
 
 			physics.step();
 
-			camera.lookAt(Away3DLiteMesh(_ball.skin).mesh.transform.matrix3D.position);
+			camera.lookAt(Away3DLiteMesh(_ball.skin).mesh.position, new Vector3D(0,1,0));
 			//camera.lookAt(Away3DLiteMesh(ground.skin).mesh.transform.matrix3D.position);
 		}
 	}

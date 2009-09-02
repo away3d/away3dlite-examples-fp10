@@ -23,17 +23,19 @@ package
 			var plane:Plane;
 			for(var i:int=0;i<4;i++)
 			{
+				// Plane
 				plane = new Plane().create(new BitmapFileMaterial("assets/earth.jpg"), 256, 128);
-				plane.yUp = false;
 				plane.bothsides = true;
-				plane.rotationX = 30;
+				plane.rotationX = 45;
 				plane.y = i*50 - 4*50/2;
 				scene.addChild(plane);
 				
-				// separates by Layer
+				// Layer
 				var layer:Sprite = new Sprite();
 				view.addChild(layer);
 				plane.layer = layer;
+				
+				// Event
 				plane.layer.addEventListener(MouseEvent.CLICK, onClick);
 			}
 		}
