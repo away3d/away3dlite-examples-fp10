@@ -23,6 +23,8 @@ package
 
 		override protected function build():void
 		{
+			title += " : Falling Balls, Click to reset"; 
+			
 			// move camera to top view
 			camera.y = 1000;
 			

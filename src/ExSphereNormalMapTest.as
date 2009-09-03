@@ -40,7 +40,7 @@ package
 
 		override protected function onInit():void
 		{
-			title += " : Layer, Click plane to change filters"; 
+			title += " : Light, not optimize yet ;p"; 
 			
 			// prep bitmapdata
 			var dfBm:Bitmap = new DiffMap() as Bitmap;
