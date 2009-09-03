@@ -103,9 +103,9 @@ package
 			planeToDragOn = new Plane3D();
 			planeToDragOn.fromNormalAndPoint(new Vector3D(0, 1, 0), new Vector3D(0, 0, -startMousePos.z));
 
-			var p:JNumber3D = currDragBody.currentState.position;
+			var p:Vector3D = currDragBody.currentState.position;
 			var bodyPoint:Vector3D = startMousePos.subtract(new Vector3D(p.x, p.y, p.z));
-			
+
 			var a:JNumber3D = new JNumber3D(bodyPoint.x, bodyPoint.y, bodyPoint.z);
 			var b:JNumber3D = new JNumber3D(startMousePos.x, startMousePos.y, startMousePos.z);
 			

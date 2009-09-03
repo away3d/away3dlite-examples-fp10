@@ -3,20 +3,20 @@ package
 	import away3dlite.materials.ColorMaterial;
 	import away3dlite.materials.WireframeMaterial;
 	import away3dlite.templates.PhysicsTemplate;
-	
+
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Vector3D;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
-	
+
 	import jiglib.math.*;
 	import jiglib.physics.*;
 	import jiglib.physics.constraint.*;
 	import jiglib.plugin.away3dlite.Away3DLiteMesh;
 
-	[SWF(backgroundColor="#666666",frameRate="30",quality="MEDIUM",width="800",height="600")]
+	[SWF(backgroundColor="#666666", frameRate = "30", quality = "MEDIUM", width = "800", height = "600")]
 	/**
 	 * Example : Flash3D Physics
 	 * @see http://away3d.googlecode.com/svn/branches/JigLibLite/src
@@ -38,10 +38,10 @@ package
 
 		override protected function build():void
 		{
-			title += " : JigLibLite Physics, Use Key up, down, left, right"; 
-			
+			title += " : JigLibLite Physics, Use Key up, down, left, right";
+
 			camera.y = 1000;
-			
+
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 
@@ -55,7 +55,7 @@ package
 			for (var i:int = 0; i < 3; i++)
 			{
 				color = (i == 0) ? 0xff8888 : 0xeeee00;
-				var ball:RigidBody = physics.createSphere(new WireframeMaterial(),25);
+				var ball:RigidBody = physics.createSphere(new WireframeMaterial(), 25);
 				ball.mass = 5;
 				ball.moveTo(new JNumber3D(-100, 500 + (100 * i + 100), -100));
 
@@ -65,11 +65,11 @@ package
 			boxBody = [];
 			for (i = 0; i < 6; i++)
 			{
-				boxBody[i] = physics.createCube(new WireframeMaterial(0xFFFFFF*Math.random()), 25, 25, 25);
+				boxBody[i] = physics.createCube(new WireframeMaterial(0xFFFFFF * Math.random()), 25, 25, 25);
 				boxBody[i].moveTo(new JNumber3D(0, 500 + (100 * i + 100), 0));
 			}
 		}
-		
+
 		// TODO : moveTo KeyUtils
 		private function keyDownHandler(event:KeyboardEvent):void
 		{
@@ -99,7 +99,7 @@ package
 					break;
 			}
 		}
-		
+
 		// TODO : moveTo KeyUtils
 		private function keyUpHandler(event:KeyboardEvent):void
 		{
@@ -150,7 +150,7 @@ package
 
 			physics.step();
 
-			camera.lookAt(Away3DLiteMesh(_ball.skin).mesh.position, new Vector3D(0,1,0));
+			camera.lookAt(Away3DLiteMesh(_ball.skin).mesh.position, new Vector3D(0, 1, 0));
 		}
 	}
 }
