@@ -61,12 +61,14 @@ package
 
 			var mat2:PBBitmapShader = new PBBitmapShader(light, dfBm.bitmapData.clone(), normBm.bitmapData.clone());
 
-			sphere = new Sphere().create(mat2, 100, segment, segment);
+			sphere = new Sphere(100, segment, segment);
+			sphere.material = mat2;
 			scene.addChild(sphere);
 			var mat:PBBitmapShader = new PBBitmapShader(light, dfBm2.bitmapData.clone(), normBm2.bitmapData.clone());
 			mat.drawSprite.x = 400;
 			this.addChild(mat.drawSprite);
-			sphere2 = new Sphere().create(mat, 50, segment, segment);
+			sphere2 = new Sphere(50, segment, segment);
+			sphere2.material = mat;
 			scene.addChild(sphere2);
 			scene.addChild(light);
 		}
