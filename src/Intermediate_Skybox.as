@@ -116,10 +116,11 @@ package
 			
 			camera = new HoverCamera3D();
 			camera.focus = 50;
-			camera.mintiltangle = -90;
-			camera.maxtiltangle = 90;
-			camera.targetpanangle = camera.panangle = 0;
-			camera.targettiltangle = camera.tiltangle = 0;
+			camera.minTiltAngle = -90;
+			camera.maxTiltAngle = 90;
+			camera.panAngle = 0;
+			camera.tiltAngle = 0;
+			camera.hover(true);
 			
 			clipping = new RectangleClipping();
 			clipping.minX = -400;
@@ -182,8 +183,8 @@ package
 		private function onEnterFrame(event:Event):void
 		{
 			if (move) {
-				camera.targetpanangle = 0.3*(stage.mouseX - lastMouseX) + lastPanAngle;
-				camera.targettiltangle = 0.3*(stage.mouseY - lastMouseY) + lastTiltAngle;
+				camera.panAngle = 0.3*(stage.mouseX - lastMouseX) + lastPanAngle;
+				camera.tiltAngle = 0.3*(stage.mouseY - lastMouseY) + lastTiltAngle;
 			}
 			
 			camera.hover();
@@ -195,8 +196,8 @@ package
 		 */
 		private function onMouseDown(event:MouseEvent):void
         {
-            lastPanAngle = camera.targetpanangle;
-            lastTiltAngle = camera.targettiltangle;
+            lastPanAngle = camera.panAngle;
+            lastTiltAngle = camera.tiltAngle;
             lastMouseX = stage.mouseX;
             lastMouseY = stage.mouseY;
         	move = true;

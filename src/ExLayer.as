@@ -24,8 +24,7 @@ package
 			for(var i:int=0;i<4;i++)
 			{
 				// Plane
-				plane = new Plane(256, 128);
-				plane.material = new BitmapFileMaterial("assets/earth.jpg");
+				plane = new Plane(new BitmapFileMaterial("assets/earth.jpg"), 256, 128);
 				plane.bothsides = true;
 				plane.rotationX = 45;
 				plane.y = i*50 - 4*50/2;

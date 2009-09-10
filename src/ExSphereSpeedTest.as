@@ -41,24 +41,21 @@ THE SOFTWARE.
 package 
 {
 	import away3dlite.core.base.*;
-	import away3dlite.core.render.*;
-	import away3dlite.cameras.*;
-	import away3dlite.containers.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
 	
-	import net.hires.debug.Stats;
-	
-	import flash.display.*;
 	import flash.events.*;
 	
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	
+	/**
+	 * FastTemplate example testing the maximum amount of faces rendered in a frame at 30fps
+	 */
 	public class ExSphereSpeedTest extends FastTemplate
 	{
 		/**
-		 * Initialise the engine
+		 * @inheritDoc
 		 */
 		protected override function onInit():void
 		{
@@ -68,7 +65,7 @@ package
 			camera.focus = 50;
 			camera.z = -500;
 			
-			renderer.sortMeshes = false;
+			renderer.sortObjects = false;
 			
 			onMouseUp();
 			onMouseUp();
@@ -82,7 +79,7 @@ package
 		}
 		
 		/**
-		 * Navigation and render loop
+		 * @inheritDoc
 		 */
 		protected override function onPreRender():void
 		{

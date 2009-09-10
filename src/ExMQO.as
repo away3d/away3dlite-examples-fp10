@@ -8,9 +8,7 @@ package
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 
 	/**
-	 * ExMQO
-	 * @author katopz
-	 *
+	 * Metasequoia example.
 	 */
 	public class ExMQO extends BasicTemplate
 	{
@@ -53,7 +51,7 @@ package
 			
 			loader = new Loader3D();
 			loader.loadGeometry("assets/Messerschmitt_Bf_109.mqo", mqo);
-			loader.addOnSuccess(onSuccess);
+			loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 			scene.addChild(loader);
 		}
 		

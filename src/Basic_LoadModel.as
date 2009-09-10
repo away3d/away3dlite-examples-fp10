@@ -38,6 +38,8 @@ THE SOFTWARE.
 
 package
 {
+	import away3dlite.events.Loader3DEvent;
+	import away3dlite.events.MouseEvent3D;
 	import away3dlite.materials.WireframeMaterial;
 	import away3dlite.primitives.Plane;
 	import away3dlite.cameras.*;
@@ -132,10 +134,10 @@ package
 			scene = new Scene3D();
 			
 			camera = new HoverCamera3D();
-			camera.targetpanangle = camera.panangle = 45;
-			camera.targettiltangle = camera.tiltangle = 20;
-			//camera.distance = 40000;
-			//view = new View3D({scene:scene, camera:camera});
+			camera.panAngle = 45;
+			camera.tiltAngle = 20;
+			camera.hover(true);
+			
 			view = new View3D();
 			view.scene = scene;
 			view.camera = camera;
@@ -165,14 +167,13 @@ package
 		 */
 		private function initObjects():void
 		{
-			//loader = Max3DS.load("assets/f360.3ds", {loadersize:200, centerMeshes:true, material:materialArray[materialIndex]}) as LoaderCube;
 			max3ds = new Max3DS();
 			max3ds.scaling = 100;
 			max3ds.centerMeshes = true;
 			max3ds.material = materialArray[materialIndex];
+			
 			loader = new Loader3D();
-			//loader.loadersize = 200;
-			loader.addOnSuccess(onSuccess);
+			loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 			loader.loadGeometry("assets/f360.3ds", max3ds);
 			
 			scene.addChild(loader);
@@ -208,14 +209,13 @@ package
 			loader.handle.rotationY += 2;
 			
 			if (move) {
-				camera.targetpanangle = 0.3*(stage.mouseX - lastMouseX) + lastPanAngle;
-				camera.targettiltangle = 0.3*(stage.mouseY - lastMouseY) + lastTiltAngle;
+				camera.panAngle = 0.3*(stage.mouseX - lastMouseX) + lastPanAngle;
+				camera.tiltAngle = 0.3*(stage.mouseY - lastMouseY) + lastTiltAngle;
 			}
 			
 			//rotate the wheels
 			if (model) {
 				for each (var object:Object3D in model.children) {
-					//object.debugbb = true;
 					if (object.name.indexOf("wheel") != -1)
 						object.rotationX += 10;
 				}
@@ -234,12 +234,12 @@ package
 			
 			model.rotationX = -90;
 			
-			//model.addOnMouseUp(onClickModel);
-			//model.addEventListener(MouseEvent3D.MOUSE_UP, onClickModel);
+			model.addEventListener(MouseEvent3D.MOUSE_UP, onClickModel);
 		}
 		
 		/**
 		 * Listener function for mouse click on car
+		 */
 		private function onClickModel(event:MouseEvent3D):void
 		{
 			materialIndex++;
@@ -248,15 +248,14 @@ package
 			
 			model.materialLibrary.getMaterial("fskin").material = materialArray[materialIndex];
 		}
-		 */
 		
 		/**
 		 * Mouse down listener for navigation
 		 */
 		private function onMouseDown(event:MouseEvent):void
         {
-            lastPanAngle = camera.targetpanangle;
-            lastTiltAngle = camera.targettiltangle;
+            lastPanAngle = camera.panAngle;
+            lastTiltAngle = camera.tiltAngle;
             lastMouseX = stage.mouseX;
             lastMouseY = stage.mouseY;
         	move = true;

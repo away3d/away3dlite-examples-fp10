@@ -3,17 +3,20 @@ package
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
-	
-	import flash.display.StageQuality;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
+	
 	/**
-	 * Example : Sphere
-	 * @author katopz
+	 * Sphere stress test
 	 */
 	public class ExSphere extends FastTemplate
 	{
-		/*
+		/**
+		 * @inheritDoc
+		 */
+		override protected function onInit():void
+		{
+			/*
 			Test with quality MEDIUM, at 30/30FPS steady
 			--------------------------------------------
 			[Single Core]
@@ -23,26 +26,22 @@ package
 			[Quad Core]
 				BasicRenderer = 100x100 segments = 19,800 faces
 				FastRenderer  = 101x101 segments = 20,200 faces
-		*/
-		
-		private var sphere:Sphere;
-		
-		override protected function onInit():void
-		{
-			var segments:uint = 100;
+			*/
+			var segments:uint = 59;
 			
-			title += " : Sphere "+segments+"x"+segments+" segments";
+			title += " : Sphere stress test " + segments + "x" + segments + " segments"; 
 			
-			sphere = new Sphere(100, segments, segments);
-			sphere.material = new BitmapFileMaterial("assets/earth.jpg");
+			var sphere:Sphere = new Sphere(new BitmapFileMaterial("assets/earth.jpg"), 100, segments, segments);
+			
 			scene.addChild(sphere);
-			
-			scene.mouseEnabled = false;
 		}
-
+		
+		/**
+		 * @inheritDoc
+		 */
 		override protected function onPreRender():void
 		{
-			sphere.rotationY++;
+			scene.rotationY += 0.2;
 		}
 	}
 }

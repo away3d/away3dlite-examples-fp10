@@ -211,7 +211,6 @@ package
 			collada.scaling = 10;
 			model1 = collada.parseGeometry(Charmesh) as ObjectContainer3D;
 			model1.materialLibrary.getMaterial("FF_FF_FF_mario1").material = material;
-			model1.mouseEnabled = false;
 			
 			scene.addChild(model1);
 			

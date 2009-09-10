@@ -55,6 +55,9 @@ package
 	
 	[SWF(backgroundColor="#999999", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	
+	/**
+	 * MD2 example
+	 */
 	public class ExMD2Cubic extends Sprite
 	{
     	//signature swf
@@ -154,7 +157,7 @@ package
 						md2.centerMeshes = true;
 						var loader:Loader3D = new Loader3D(); 
 						loader.loadGeometry("assets/pg.md2", md2);
-						loader.addOnSuccess(onSuccess);
+						loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 						
 						loader.x = gap*i - amount*gap/2;
 						loader.y = gap*j - amount*gap/2;
