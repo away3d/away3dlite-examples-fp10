@@ -41,109 +41,47 @@ THE SOFTWARE.
 package
 {
 	import away3dlite.animators.*;
-	import away3dlite.cameras.*;
-	import away3dlite.containers.*;
-	import away3dlite.core.render.*;
+	import away3dlite.core.utils.*;
 	import away3dlite.events.*;
 	import away3dlite.loaders.*;
 	import away3dlite.materials.*;
-	
-	import net.hires.debug.Stats;
+	import away3dlite.templates.*;
 	
 	import flash.display.*;
-	import flash.events.*;
 	
-	[SWF(backgroundColor="#999999", frameRate="30", quality="MEDIUM", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	
 	/**
 	 * MD2 example
 	 */
-	public class ExMD2Cubic extends Sprite
+	public class ExMD2Cubic extends FastTemplate
 	{
     	//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
     	public static var SignatureSwf:Class;
-		
-		//engine variables
-		private var stats:Stats;
-		private var scene:Scene3D;
-		private var camera:Camera3D;
-		private var renderer:FastRenderer;
-		private var view:View3D;
 		
 		//signature variables
 		private var Signature:Sprite;
 		private var SignatureBitmap:Bitmap;
 		
-		//material objects
-		//private var material:LineMaterial;
-		private var material:BitmapMaterial;
-		
-		/**
-		 * Constructor
-		 */
-		public function ExMD2Cubic() 
+		private function onSuccess(event:Loader3DEvent):void
 		{
-			init();
+			var model:MovieMesh = event.loader.handle as MovieMesh;
+			model.play("walk");
 		}
 		
 		/**
-		 * Global initialise function
+		 * @inheritDoc
 		 */
-		private function init():void
+		override protected function onInit():void
 		{
-			initEngine();
-			initMaterials();
-			initObjects();
-			initListeners();
-		}
-		
-		/**
-		 * Initialise the engine
-		 */
-		private function initEngine():void
-		{
-			scene = new Scene3D();
-			
-			camera = new Camera3D();
+			title += " : MD2 Example.";
+			Debug.active = true;
 			camera.z = -1500;
 			
-			renderer = new FastRenderer();
-			
-			view = new View3D();
-			view.scene = scene;
-			view.camera = camera;
-			view.renderer = renderer;
-			
-			//view.addSourceURL("srcview/index.html");
-			addChild(view);
-			
-			//add signature
-            Signature = Sprite(new SignatureSwf());
-            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
-            stage.quality = StageQuality.HIGH;
-            SignatureBitmap.bitmapData.draw(Signature);
-            stage.quality = StageQuality.MEDIUM;
-			addChild(SignatureBitmap);
-			
-			stats = new Stats();
-			addChild(stats);
-		}
-		
-		/**
-		 * Initialise the materials
-		 */
-		private function initMaterials():void
-		{
-			material = new BitmapFileMaterial("assets/pg.png");
+			var material:BitmapFileMaterial = new BitmapFileMaterial("assets/pg.png");
 			material.smooth = true;
-		}
-		
-		/**
-		 * Initialise the scene objects
-		 */
-		private function initObjects():void
-		{
+			
 			var amount:uint = 3;
 			var gap:int = 240;
 
@@ -168,47 +106,27 @@ package
 				}
 			}
 			
-			view.scene.rotationX = 30;
+			scene.rotationX = 30;
+			
+			//add signature
+            Signature = Sprite(new SignatureSwf());
+            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
+            SignatureBitmap.y = stage.stageHeight - Signature.height;
+            stage.quality = StageQuality.HIGH;
+            SignatureBitmap.bitmapData.draw(Signature);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
 		}
 		
 		/**
-		 * Initialise the listeners
+		 * @inheritDoc
 		 */
-		private function initListeners():void
-		{
-			addEventListener(Event.ENTER_FRAME, onEnterFrame);
-			stage.addEventListener(Event.RESIZE, onResize);
-			onResize();
-		}
-		
-		/**
-		 * Navigation and render loop
-		 */
-		private function onEnterFrame( e:Event ):void
+		override protected function onPreRender():void
 		{
 			scene.rotationX = (mouseX - stage.stageWidth / 2) / 5;
 			scene.rotationZ = (mouseY - stage.stageHeight / 2) / 5;
 			scene.rotationY++;
 			view.render();
-		}
-						
-		/**
-		 * Listener function for loading complete event on loader
-		 */
-		private function onSuccess(event:Loader3DEvent):void
-		{
-			var model:MovieMesh = event.loader.handle as MovieMesh;
-			model.play("walk");
-		}
-		
-		/**
-		 * stage listener for resize events
-		 */
-		private function onResize(event:Event = null):void
-		{
-			view.x = stage.stageWidth / 2;
-            view.y = stage.stageHeight / 2;
-            SignatureBitmap.y = stage.stageHeight - Signature.height;
 		}
 	}
 }

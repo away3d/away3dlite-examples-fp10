@@ -44,7 +44,9 @@ package
 	import away3dlite.events.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
-	
+
+	import net.hires.debug.Stats;
+
 	import flash.display.*;
 	import flash.events.*;
 	
@@ -53,7 +55,7 @@ package
 	public class Basic_InteractiveObjects extends Sprite
 	{
 		//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite.swf", symbol="Signature")]
     	private var SignatureSwf:Class;
     	
 		//engine variables
@@ -122,6 +124,8 @@ package
             SignatureBitmap.bitmapData.draw(Signature);
             stage.quality = StageQuality.LOW;
             addChild(SignatureBitmap);
+            
+            addChild(new Stats());
 		}
 		
 		private function initObjects():void

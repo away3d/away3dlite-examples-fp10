@@ -85,11 +85,10 @@ package
 		private var Charmesh:Class;
 		
     	//signature swf
-    	[Embed(source="assets/signature_peter.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite_peter.swf", symbol="Signature")]
     	public var SignatureSwf:Class;
     	
     	//engine variables
-    	private var stats:Stats;
 		private var camera:Camera3D;
 		private var view:View3D;
 		private var scene:Scene3D;
@@ -159,9 +158,6 @@ package
 		 */
 		private function initEngine():void
 		{
-			stats = new Stats();
-			addChild(stats);
-			
 			scene = new Scene3D();
 			camera = new Camera3D();
 			
@@ -181,6 +177,8 @@ package
             SignatureBitmap.bitmapData.draw(Signature);
             stage.quality = StageQuality.LOW;
             addChild(SignatureBitmap);
+            
+            addChild(new Stats);
 		}
 		
 		/**
@@ -195,7 +193,6 @@ package
 			floorMaterial.repeat = true;
 			//floorMaterial.scaleX = 3;
 			//floorMaterial.scaleY = 3;
-			//floorMaterial.precision = 2;
 			
 			shadeMaterial = new BitmapMaterial(Cast.bitmap(Shade));
 			

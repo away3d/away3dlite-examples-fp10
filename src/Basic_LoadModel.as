@@ -53,12 +53,12 @@ package
 	import flash.display.*;
 	import flash.events.*;
 	
-	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="60", quality="MEDIUM", width="800", height="600")]
 	
 	public class Basic_LoadModel extends Sprite
 	{
     	//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite.swf", symbol="Signature")]
     	public var SignatureSwf:Class;
 		
 		//ferrari texture
@@ -78,7 +78,6 @@ package
 		private var GreyPaint:Class;
 		
 		//engine variables
-		private var stats:Stats;
     	private var scene:Scene3D;
 		private var camera:HoverCamera3D;
 		private var view:View3D;
@@ -128,9 +127,6 @@ package
 		 */
 		private function initEngine():void
 		{
-			stats = new Stats();
-			addChild(stats);
-			
 			scene = new Scene3D();
 			
 			camera = new HoverCamera3D();
@@ -152,6 +148,8 @@ package
             SignatureBitmap.bitmapData.draw(Signature);
             stage.quality = StageQuality.MEDIUM;
             addChild(SignatureBitmap);
+            
+            addChild(new Stats());
 		}
 		
 		/**

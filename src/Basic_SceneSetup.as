@@ -48,16 +48,15 @@ package
 	import flash.display.*;
 	import flash.events.*;
 	
-	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="60", quality="MEDIUM", width="800", height="600")]
 	
 	public class Basic_SceneSetup extends Sprite
 	{
     	//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite.swf", symbol="Signature")]
     	public static var SignatureSwf:Class;
     	
 		//engine variables
-		private var stats:Stats;
 		private var scene:Scene3D;
 		private var camera:Camera3D;
 		private var view:View3D;
@@ -96,9 +95,6 @@ package
 		 */
 		private function initEngine():void
 		{
-			stats = new Stats();
-			addChild(stats);
-			
 			scene = new Scene3D();
 			
 			//camera = new Camera3D({z:-1000});
@@ -120,6 +116,8 @@ package
             SignatureBitmap.bitmapData.draw(Signature);
             stage.quality = StageQuality.MEDIUM;
             addChild(SignatureBitmap);
+            
+            addChild(new Stats());
 		}
 		
 		/**

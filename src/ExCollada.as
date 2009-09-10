@@ -1,12 +1,11 @@
 /*
 
-Basic Metasequoia loading in Away3dLite
+Basic Collada loading in Away3dLite
 
 Demonstrates:
 
-How to load a Metasequoia file.
-How to load a texture from an external image.
-How to clone a laoded model.
+How to load a Collada file.
+How to access loaded textures from the material library.
 
 Code by Rob Bateman & Katopz
 rob@infiniteturtles.co.uk
@@ -40,46 +39,38 @@ THE SOFTWARE.
 
 package
 {
+	import away3dlite.core.utils.*;
 	import away3dlite.core.base.*;
 	import away3dlite.events.*;
 	import away3dlite.loaders.*;
 	import away3dlite.templates.*;
 
+	import flash.display.*;
+	import flash.events.*;
+	
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 
 	/**
-	 * Metasequoia example.
+	 * Collada example.
 	 */
-	public class ExMQO extends BasicTemplate
+	public class ExCollada extends FastTemplate
 	{
-		private var mqo:MQO;
+		//signature swf
+    	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
+    	public var SignatureSwf:Class;
+    	
+		private var Signature:Sprite;
+		private var SignatureBitmap:Bitmap;
+		
+		private var collada:Collada;
 		private var loader:Loader3D;
 		private var loaded:Boolean = false;
-		private var model1:Object3D;
-		private var model2:Object3D;
-		private var model3:Object3D;
-		private var model4:Object3D;
-		private var model5:Object3D;
+		private var model:Object3D;
 		
 		private function onSuccess(event:Loader3DEvent):void
 		{
 			loaded = true;
-			model1 = loader.handle;
-			
-			model2 = model1.clone();
-			model3 = model1.clone();
-			model4 = model1.clone();
-			model5 = model1.clone();
-			
-			model2.x = -300;
-			model3.x = 300;
-			model4.y = -220;
-			model5.y = 220;
-			
-			scene.addChild(model2);
-			scene.addChild(model3);
-			scene.addChild(model4);
-			scene.addChild(model5);
+			model = loader.handle;
 		}
 		
 		/**
@@ -87,15 +78,30 @@ package
 		 */
 		override protected function onInit():void
 		{
-			title += " : Metasequoia Example.";
+			title += " : Collada Example.";
+			Debug.active = true;
+			camera.z = -1000;
 			
-			mqo = new MQO();
-			//mqo.centerMeshes = true;
+			collada = new Collada();
+			collada.scaling = 600;
+			collada.centerMeshes = true;
 			
 			loader = new Loader3D();
-			loader.loadGeometry("assets/Messerschmitt_Bf_109.mqo", mqo);
+			loader.loadGeometry("assets/chameleon.dae", collada);
 			loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 			scene.addChild(loader);
+			
+			//add signature
+            Signature = Sprite(new SignatureSwf());
+            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
+            SignatureBitmap.y = stage.stageHeight - Signature.height;
+            stage.quality = StageQuality.HIGH;
+            SignatureBitmap.bitmapData.draw(Signature);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
+            
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			stage.addEventListener(MouseEvent.CLICK, onMouseUp);
 		}
 		
 		/**
@@ -103,27 +109,27 @@ package
 		 */
 		override protected function onPreRender():void
 		{
-			if (loaded) {
-				model1.rotationX++;
-				model1.rotationY++;
-				model1.rotationZ++;
-				
-				model2.rotationX++;
-				model2.rotationY++;
-				model2.rotationZ++;
-				
-				model3.rotationX++;
-				model3.rotationY++;
-				model3.rotationZ++;
-				
-				model4.rotationX++;
-				model4.rotationY++;
-				model4.rotationZ++;
-				
-				model5.rotationX++;
-				model5.rotationY++;
-				model5.rotationZ++;
-			}
+				scene.rotationX = (mouseX - stage.stageWidth/2)/5;
+				scene.rotationZ = (mouseY - stage.stageHeight/2)/5;
+				scene.rotationY++;
+		}
+		
+		/**
+		 * Listener function for mouse up event
+		 */
+		private function onMouseUp(event:MouseEvent = null):void
+		{
+			if (loaded)
+				model.materialLibrary.getMaterial("material_0_1_0ID").material.debug = false;
+		}
+		
+		/**
+		 * Listener function for mouse down event
+		 */
+		private function onMouseDown(event:MouseEvent = null):void
+		{
+			if (loaded)
+				model.materialLibrary.getMaterial("material_0_1_0ID").material.debug = true;
 		}
 	}
 }

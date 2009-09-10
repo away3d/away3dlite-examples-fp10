@@ -11,6 +11,10 @@ Code by Rob Bateman
 rob@infiniteturtles.co.uk
 http://www.infiniteturtles.co.uk
 
+Graphics by Peter Kapelyan
+flashnine@gmail.com
+http://www.flashten.com/
+
 This code is distributed under the MIT License
 
 Copyright (c)  
@@ -49,12 +53,12 @@ package
 	
 	import net.hires.debug.Stats;
 	
-	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
+	[SWF(backgroundColor="#000000", frameRate="60", quality="MEDIUM", width="800", height="600")]
 	
 	public class Intermediate_Skybox extends Sprite
 	{
 		//signature swf
-    	[Embed(source="assets/signature.swf", symbol="Signature")]
+    	[Embed(source="assets/signature_lite_peter.swf", symbol="Signature")]
     	private var SignatureSwf:Class;
     	
 		//skybox image 1
