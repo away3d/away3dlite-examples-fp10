@@ -4,10 +4,9 @@ package
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
 	
-	import flash.display.Shape;
-	import flash.display.Sprite;
-	import flash.events.MouseEvent;
-	import flash.filters.GlowFilter;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.filters.*;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 	/**
@@ -16,6 +15,26 @@ package
 	 */
 	public class ExLayer extends FastTemplate
 	{
+    	//signature swf
+    	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
+    	private var SignatureSwf:Class;
+		
+		//signature variables
+		private var Signature:Sprite;
+		private var SignatureBitmap:Bitmap;
+		
+		private function onClick(event:MouseEvent):void
+		{
+			trace("! onClick : " +event);
+			
+			var layer:Sprite = event.target as Sprite;
+			
+			if(layer.filters.length==0)
+				layer.filters = [new GlowFilter(0xFF0000, 1, 4, 4, 16, 1)];
+			else
+				layer.filters = null;
+		}
+		
 		override protected function onInit():void
 		{
 			title += " : Layer, Click plane to change filters"; 
@@ -38,22 +57,21 @@ package
 				// Event
 				plane.layer.addEventListener(MouseEvent.CLICK, onClick);
 			}
+			
+			//add signature
+            Signature = Sprite(new SignatureSwf());
+            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
+            SignatureBitmap.y = stage.stageHeight - Signature.height;
+            stage.quality = StageQuality.HIGH;
+            SignatureBitmap.bitmapData.draw(Signature);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
 		}
 		
-		private function onClick(event:MouseEvent):void
-		{
-			trace("! onClick : " +event);
-			
-			var layer:Sprite = event.target as Sprite;
-			
-			if(layer.filters.length==0)
-			{
-				layer.filters = [new GlowFilter(0xFF0000, 1, 4, 4, 16, 1)];
-			}else{
-				layer.filters = null;
-			}
-		}
 		
+		/**
+		 * @inheritDoc
+		 */
 		override protected function onPreRender():void
 		{
 			scene.rotationY++;

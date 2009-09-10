@@ -57,7 +57,7 @@ package
 	{
 		//signature swf
     	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
-    	public var SignatureSwf:Class;
+    	private var SignatureSwf:Class;
     	
 		private var Signature:Sprite;
 		private var SignatureBitmap:Bitmap;

@@ -45,6 +45,7 @@ package
 	import away3dlite.primitives.*;
 	import away3dlite.templates.*;
 	
+	import flash.display.*;
 	import flash.events.*;
 	
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
@@ -54,6 +55,14 @@ package
 	 */
 	public class ExSphereSpeedTest extends FastTemplate
 	{
+    	//signature swf
+    	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
+    	private var SignatureSwf:Class;
+		
+		//signature variables
+		private var Signature:Sprite;
+		private var SignatureBitmap:Bitmap;
+		
 		/**
 		 * @inheritDoc
 		 */
@@ -73,6 +82,15 @@ package
 			onMouseUp();
 			onMouseUp();
 			onMouseUp();
+			
+			//add signature
+            Signature = Sprite(new SignatureSwf());
+            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
+            SignatureBitmap.y = stage.stageHeight - Signature.height;
+            stage.quality = StageQuality.HIGH;
+            SignatureBitmap.bitmapData.draw(Signature);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			stage.addEventListener(MouseEvent.CLICK, onMouseUp);

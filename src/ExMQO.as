@@ -44,6 +44,8 @@ package
 	import away3dlite.events.*;
 	import away3dlite.loaders.*;
 	import away3dlite.templates.*;
+	
+	import flash.display.*;
 
 	[SWF(backgroundColor="#000000", frameRate="30", quality="MEDIUM", width="800", height="600")]
 
@@ -52,6 +54,14 @@ package
 	 */
 	public class ExMQO extends BasicTemplate
 	{
+    	//signature swf
+    	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
+    	private var SignatureSwf:Class;
+		
+		//signature variables
+		private var Signature:Sprite;
+		private var SignatureBitmap:Bitmap;
+		
 		private var mqo:MQO;
 		private var loader:Loader3D;
 		private var loaded:Boolean = false;
@@ -96,6 +106,15 @@ package
 			loader.loadGeometry("assets/Messerschmitt_Bf_109.mqo", mqo);
 			loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 			scene.addChild(loader);
+			
+			//add signature
+            Signature = Sprite(new SignatureSwf());
+            SignatureBitmap = new Bitmap(new BitmapData(Signature.width, Signature.height, true, 0));
+            SignatureBitmap.y = stage.stageHeight - Signature.height;
+            stage.quality = StageQuality.HIGH;
+            SignatureBitmap.bitmapData.draw(Signature);
+            stage.quality = StageQuality.MEDIUM;
+			addChild(SignatureBitmap);
 		}
 		
 		/**
