@@ -44,9 +44,9 @@ package
 	import away3dlite.events.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
-
+	
 	import net.hires.debug.Stats;
-
+	
 	import flash.display.*;
 	import flash.events.*;
 	
