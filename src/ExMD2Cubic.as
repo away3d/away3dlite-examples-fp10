@@ -97,8 +97,8 @@ package
 						loader.loadGeometry("assets/pg.md2", md2);
 						loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 						
-						loader.x = gap*i - amount*gap/2;
-						loader.y = gap*j - amount*gap/2;
+						loader.x = gap*i - amount*gap/2 + 100;
+						loader.y = gap*j - amount*gap/2 + 200;
 						loader.z = gap*k - amount*gap/2;
 						
 						view.scene.addChild(loader);
