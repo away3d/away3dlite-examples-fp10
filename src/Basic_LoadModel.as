@@ -175,7 +175,7 @@ package
 			loader.loadGeometry("assets/f360.3ds", max3ds);
 			
 			scene.addChild(loader);
-			
+			/*//
 			var plane:Plane = new Plane();
 			plane.segmentsH = 80;
 			plane.segmentsW = 80;
@@ -185,6 +185,7 @@ package
 			plane.width = 500;
 			plane.height = 500;
 			scene.addChild(plane);
+			//*/
 		}
 		
 		/**
@@ -215,7 +216,7 @@ package
 			if (model) {
 				for each (var object:Object3D in model.children) {
 					if (object.name.indexOf("wheel") != -1)
-						object.rotationX += 10;
+						object.rotationX -= 10;
 				}
 			}
 			
