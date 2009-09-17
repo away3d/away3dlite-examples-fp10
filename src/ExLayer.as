@@ -13,7 +13,7 @@ package
 	 * Example : Layer
 	 * @author katopz
 	 */
-	public class ExLayer extends FastTemplate
+	public class ExLayer extends BasicTemplate
 	{
     	//signature swf
     	[Embed(source="assets/signature_lite_katopz.swf", symbol="Signature")]
@@ -39,11 +39,12 @@ package
 		{
 			title += " : Layer, Click plane to change filters"; 
 			
+			// index layer
 			var plane:Plane;
 			for(var i:int=0;i<4;i++)
 			{
 				// Plane
-				plane = new Plane(new BitmapFileMaterial("assets/earth.jpg"), 256, 128);
+				plane = new Plane(new BitmapFileMaterial("assets/earth.jpg"), 256, 128,1,1);
 				plane.bothsides = true;
 				plane.rotationX = 45;
 				plane.y = i*50 - 4*50/2;
@@ -51,12 +52,26 @@ package
 				
 				// Layer
 				var layer:Sprite = new Sprite();
+				layer.name = String(i);
 				view.addChild(layer);
 				plane.layer = layer;
 				
 				// Event
 				plane.layer.addEventListener(MouseEvent.CLICK, onClick);
 			}
+			
+			// no layer test
+			var earth:Sphere = new Sphere(new BitmapFileMaterial("assets/earth.jpg"), 100, 10, 10);
+			scene.addChild(earth);
+			
+			// on top layer
+			var moon:Sphere = new Sphere(new BitmapFileMaterial("assets/moon.jpg"), 25, 10, 10);
+			scene.addChild(moon);
+			moon.layer = new Sprite();
+			view.addChild(moon.layer);
+			
+			// test filters
+			moon.layer.filters = [new GlowFilter(0xFFFF00, 1, 4, 4, 16, 1)];
 			
 			//add signature
             Signature = Sprite(new SignatureSwf());
