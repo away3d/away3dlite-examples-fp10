@@ -73,7 +73,7 @@ package
 
 		private function createMaterial():ParticleMaterial
 		{
-			var _materials:ParticleMaterial = new ParticleMaterial(true);
+			var _materials:ParticleMaterial = new ParticleMaterial();
 
 			for (var i:int = 0; i < numFrames; i++)
 			{
