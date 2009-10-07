@@ -118,7 +118,7 @@ package
 			}
 		}
 		
-		override protected function onPostRender():void
+		override protected function onPreRender():void
 		{
 			scene.rotationX += .5;
 			scene.rotationY += .5;
