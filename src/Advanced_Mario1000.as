@@ -155,7 +155,7 @@ package
 			view2 = new View3D();
 			view2.camera = camera2;
 			
-			//view.addSourceURL("srcview/index.html");
+			view2.addSourceURL("srcview/index.html");
 			addChild(view1);
 			addChild(view2);
 			
