@@ -44,7 +44,7 @@ THE SOFTWARE.
 package
 {
 	import away3dlite.events.MouseEvent3D;
-	import away3dlite.core.base.MeshSortType;
+	import away3dlite.core.base.SortType;
 	import away3dlite.animators.BonesAnimator;
 	import away3dlite.cameras.*;
 	import away3dlite.containers.*;
@@ -276,7 +276,7 @@ package
 			
 			shade1 = new Plane();
 			shade1.material = shadeMaterial;
-			shade1.sortType = MeshSortType.BACK;
+			shade1.sortType = SortType.BACK;
 			shade1.mouseEnabled = false;
 			
 			scene.addChild(shade1);
@@ -330,7 +330,7 @@ package
 			floor.height = 600;
 			floor.material = floorMaterial;
 			//floor.ownCanvas = true;
-			floor.sortType = MeshSortType.BACK;
+			floor.sortType = SortType.BACK;
 			scene.addChild(floor);
 			
 			//grabs an instance of the skin animation from the animationLibrary

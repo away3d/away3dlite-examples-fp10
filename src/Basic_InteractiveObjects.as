@@ -134,7 +134,7 @@ package
 			plane.y = -20;
 			plane.width = 1000;
 			plane.height = 1000;
-			plane.sortType = MeshSortType.BACK;
+			plane.sortType = SortType.BACK;
 			plane.segmentsW = 20;
 			plane.segmentsH = 20;
 			scene.addChild(plane);
