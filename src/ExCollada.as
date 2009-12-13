@@ -87,7 +87,7 @@ package
 			collada.centerMeshes = true;
 			
 			loader = new Loader3D();
-			loader.loadGeometry("assets/chameleon.dae", collada);
+			loader.loadGeometry("../src/assets/chameleon.dae", collada);
 			loader.addEventListener(Loader3DEvent.LOAD_SUCCESS, onSuccess);
 			scene.addChild(loader);
 			
