@@ -40,10 +40,9 @@ package
 {
 	import away3dlite.cameras.*;
 	import away3dlite.containers.*;
+	import away3dlite.debug.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
-	
-	import net.hires.debug.Stats;
 	
 	import flash.display.*;
 	import flash.events.*;
@@ -117,7 +116,7 @@ package
             stage.quality = StageQuality.MEDIUM;
             addChild(SignatureBitmap);
             
-            addChild(new Stats());
+            addChild(new AwayStats(view));
 		}
 		
 		/**

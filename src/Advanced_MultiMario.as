@@ -43,18 +43,16 @@ THE SOFTWARE.
 
 package
 {
-	import away3dlite.events.MouseEvent3D;
-	import away3dlite.core.base.SortType;
-	import away3dlite.animators.BonesAnimator;
+	import away3dlite.animators.*;
 	import away3dlite.cameras.*;
 	import away3dlite.containers.*;
-	import away3dlite.core.base.Mesh;
+	import away3dlite.core.base.*;
 	import away3dlite.core.utils.*;
+	import away3dlite.debug.*;
+	import away3dlite.events.*;
 	import away3dlite.loaders.*;
 	import away3dlite.materials.*;
 	import away3dlite.primitives.*;
-	
-	import net.hires.debug.Stats;
 	
 	import flash.display.*;
 	import flash.events.*;
@@ -178,7 +176,7 @@ package
             stage.quality = StageQuality.LOW;
             addChild(SignatureBitmap);
             
-            addChild(new Stats);
+            addChild(new AwayStats(view));
 		}
 		
 		/**
@@ -394,6 +392,7 @@ package
 		 */
 		private function onMouseMove(e:MouseEvent3D):void {
 			position.x = e.scenePosition.x;
+			position.y = e.scenePosition.y;
 			position.z = e.scenePosition.z;
 		}
 		
