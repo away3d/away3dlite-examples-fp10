@@ -23,13 +23,15 @@ package
 		private var material:BitmapMaterial;
 		
 		private const radius:uint = 200;
-		private const max:int = 2000;
+		private const max:int = 100;
 		private const size:uint = 10;
 
 		private const numFrames:uint = 30;
 
 		private var step:Number = 0;
 		private var segment:Number;
+
+        public var sprites:Array = [];
 		 
 		override protected function onInit():void
 		{
@@ -56,6 +58,7 @@ package
 				sprite3D.z = radius * Math.sin(segment * j);
 				scene.addSprite(sprite3D);
 				i += 0.25;
+                sprites.push(sprite3D);
 			}
 
 			// center
@@ -86,8 +89,28 @@ package
 			_graphics.endFill();
 		}
 		
+        public var i:int=0;
+        public var flipped:Boolean = false;
+        public var tmp:Array = [];
+
 		override protected function onPreRender():void
 		{
+
+            var s:Sprite3D = flipped ? tmp.shift() : sprites.shift();
+
+            if (!s) {
+                flipped = !flipped;
+                return;
+            }
+
+            if (flipped) {
+                sprites.push(s);
+                scene.addSprite(s);
+            } else {
+                tmp.push(s);
+                scene.removeSprite(s);
+            }
+            
 			//scene.rotationX += .5;
 			scene.rotationY += .5;
 			//scene.rotationZ += .5;
